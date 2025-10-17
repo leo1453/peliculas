@@ -6,6 +6,7 @@ use App\Livewire\Settings\Profile;
 use App\Livewire\Settings\TwoFactor;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
+use App\Http\Controllers\adminController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -32,6 +33,10 @@ Route::middleware(['auth'])->group(function () {
             ),
         )
         ->name('two-factor.show');
+    Route::get('sucursales', [adminController::class, 'index'])->name('sucursales.index');
+    Route::post('sucursales/save', [adminController::class, 'save'])->name('sucursales.save');
+    Route::post('sucursales/delete/{id}', [adminController::class, 'delete'])->name('sucursales.delete');
+    Route::get('sucursales/show/{id}', [adminController::class, 'show'])->name('sucursales.show');
 });
 
 require __DIR__.'/auth.php';
