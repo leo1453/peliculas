@@ -37,6 +37,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('sucursales/save', [adminController::class, 'save'])->name('sucursales.save');
     Route::post('sucursales/delete/{id}', [adminController::class, 'delete'])->name('sucursales.delete');
     Route::get('sucursales/show/{id}', [adminController::class, 'show'])->name('sucursales.show');
+
+    Route::get('salas', [adminController::class, 'salasIndex'])->name('salas.index');
+    Route::post('salas/save', [adminController::class, 'salasSave'])->name('salas.save');
+    Route::post('salas/delete/{id}', [adminController::class, 'salasDelete'])->name('salas.delete');
+    Route::get('salas/show/{id}', [adminController::class, 'salasShow'])->name('salas.show');
+
 });
 
 require __DIR__.'/auth.php';

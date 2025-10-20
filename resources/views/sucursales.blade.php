@@ -2,7 +2,7 @@
     <h2>Sucursales</h2>
     <div>
         <flux:modal.trigger name="edit-profile">
-            <flux:button>Edit profile</flux:button>
+            <flux:button>Agrega Sucursal</flux:button>
         </flux:modal.trigger>
     </div>
 

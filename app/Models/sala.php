@@ -9,4 +9,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class sala extends Model
 {
     use SoftDeletes;
+
+    public function sucursal()
+    {
+        return $this->belongsTo(Sucursal::class);
+    }
 }
