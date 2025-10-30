@@ -5,10 +5,11 @@
         </div>
         <form method="POST" action="{{ route('sucursales.save') }}">
         @csrf
-        <flux:input label="Nombre" placeholder="Nombre" wire:model='nombre' value='{{ $sucursal->nombre }}'/>
-        <flux:input label="Dirección" placeholder="Dirección" wire:model='direccion' value='{{ $sucursal->direccion }}'/>
-        <flux:input label="Telefono" placeholder="Telefono" wire:model='telefono' value='{{ $sucursal->telefono }}'/>
-        <flux:input label="Director" placeholder="Director" wire:model='director' value='{{ $sucursal->director }}'/>
+        <input type="hidden" name="id" value="{{ $sucursal->id }}">
+        <flux:input label="Nombre" placeholder="Nombre" name="nombre" wire:model='nombre' value='{{ $sucursal->nombre }}'/>
+        <flux:input label="Dirección" placeholder="Dirección" name="direccion" wire:model='direccion' value='{{ $sucursal->direccion }}'/>
+        <flux:input label="Telefono" placeholder="Telefono" name="telefono" wire:model='telefono' value='{{ $sucursal->telefono }}'/>
+        <flux:input label="Director" placeholder="Director" name="director" wire:model='director' value='{{ $sucursal->director }}'/>
 
 
         <div class="flex">
