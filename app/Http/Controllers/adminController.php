@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Sucursal;
 use App\Models\Sala;
+use App\Models\Pelicula;
+
 
 class adminController extends Controller
 {
@@ -66,5 +68,40 @@ class adminController extends Controller
         $sala = Sala::find($id);
         $sucursales = Sucursal::all();
         return view('salas-modifica', compact('sala', 'sucursales'));
+    }
+
+     // --- Peliculas ---
+    public function peliculasIndex() {
+        $salas = Sala::with('sucursal')->get();
+        $sucursales = Sucursal::all();
+        $peliculas = Pelicula::with(['sucursal', 'sala'])->get(); 
+        return view('peliculas', compact('salas', 'sucursales','peliculas'));
+    }
+
+    public function peliculasSave(Request $request) {
+        $pelicula = $request->id ? Pelicula::find($request->id) : new Pelicula();
+
+        $pelicula->nombre = $request->nombre;
+        $pelicula->director = $request->director;
+        $pelicula->duracion = $request->duracion;
+        $pelicula->genero = $request->genero;
+        $pelicula->sucursal_id = $request->sucursal_id;
+        $pelicula->sala_id = $request->sala_id;
+        $pelicula->save();
+
+        return redirect()->route('peliculas.index');
+    }
+
+    public function peliculasDelete($id) {
+        $pelicula = Pelicula::find($id);
+        $pelicula?->delete();
+        return redirect()->back();
+    }
+
+    public function peliculasShow($id) {
+        $pelicula = Pelicula::find($id);
+        $salas = Sala::all();
+        $sucursales = Sucursal::all();
+        return view('peliculas-modifica', compact('salas', 'sucursales','pelicula'));
     }
 }
