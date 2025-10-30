@@ -1,5 +1,5 @@
 <x-layouts.app>
-    <h2>Salas</h2>
+    <h2>Películas</h2>
 
     <div class="mb-4">
         <flux:modal.trigger name="agregar-pelicula">
@@ -26,7 +26,7 @@
                     <td class="border px-4 py-2">{{ $pelicula->director }}</td>
                     <td class="border px-4 py-2">{{ $pelicula->duracion }}</td>
                     <td class="border px-4 py-2">{{ $pelicula->genero }}</td>
-                    <td class="border px-4 py-2">
+                    <td class="border px-2 py-2">
                         <form method="POST" action="{{ route('peliculas.delete', $pelicula->id) }}" style="display:inline;">
                             @csrf
                             <flux:button type="submit" variant="danger">Eliminar</flux:button>

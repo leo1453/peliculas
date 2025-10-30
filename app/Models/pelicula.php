@@ -9,4 +9,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class pelicula extends Model
 {
     use SoftDeletes;
+
+    public function salas()
+    {
+        return $this->belongsToMany(Sala::class, 'pelicula_sala', 'pelicula_id', 'sala_id');
+    }
 }
