@@ -6,12 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class pelicula extends Model
+class Pelicula extends Model
 {
-    use SoftDeletes;
+    use HasFactory, SoftDeletes;
 
-    public function salas()
+    protected $fillable = ['nombre', 'director', 'duracion', 'genero', 'sala_id'];
+
+    public function sala()
     {
-        return $this->belongsToMany(Sala::class, 'pelicula_sala', 'pelicula_id', 'sala_id');
+        return $this->belongsTo(Sala::class);
     }
 }

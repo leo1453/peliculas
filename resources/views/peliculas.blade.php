@@ -16,6 +16,7 @@
                     <th class="border px-4 py-2">Director</th>
                     <th class="border px-4 py-2">Duracion</th>
                     <th class="border px-4 py-2">Genero</th>
+                    <th class="border px-4 py-2">Sala</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,6 +27,7 @@
                     <td class="border px-4 py-2">{{ $pelicula->director }}</td>
                     <td class="border px-4 py-2">{{ $pelicula->duracion }}</td>
                     <td class="border px-4 py-2">{{ $pelicula->genero }}</td>
+                    <td class="border px-4 py-2">{{ $pelicula->sala ? $pelicula->sala->nombre : 'Sin sala' }}</td>
                     <td class="border px-2 py-2">
                         <form method="POST" action="{{ route('peliculas.delete', $pelicula->id) }}" style="display:inline;">
                             @csrf
@@ -53,7 +55,12 @@
                 <flux:input label="Director" placeholder="Director" name="director" />
                 <flux:input label="Duración" placeholder="Duración" name="duracion" type="number" />
                 <flux:input label="Género" placeholder="Género" name="genero" />
-
+                <flux:select label="Sala" name="sala_id">
+                    <option value="">Selecciona una sala</option>
+                    @foreach($salas as $sala)
+                        <option value="{{ $sala->id }}">{{ $sala->nombre }}</option>
+                    @endforeach
+                </flux:select>
                 <div class="flex">
                     <flux:spacer />
                     <flux:button type="submit" variant="primary">Guardar</flux:button>
