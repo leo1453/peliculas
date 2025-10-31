@@ -18,7 +18,6 @@
                     <th class="border px-4 py-2">Genero</th>
                     <th class="border px-4 py-2">Sucursal</th>
                     <th class="border px-4 py-2">Sala</th>
-
                     <th class="border px-4 py-2">Acciones</th>
                 </tr>
             </thead>
@@ -30,7 +29,7 @@
                     <td class="border px-4 py-2">{{ $pelicula->director }}</td>
                     <td class="border px-4 py-2">{{ $pelicula->duracion }}</td>
                     <td class="border px-4 py-2">{{ $pelicula->genero }}</td>
-                    <td class="border px-4 py-2">{{ $pelicula->sucursal->nombre ?? 'Sin sucursal' }}</td>
+                    <td class="border px-4 py-2">{{ $pelicula->sala->sucursal->nombre ?? 'Sin sucursal' }}</td>
                     <td class="border px-4 py-2">{{ $pelicula->sala->nombre ?? 'Sin sala' }}</td>
                     <td class="border px-4 py-2">
                         <form method="POST" action="{{ route('peliculas.delete', $pelicula->id) }}" style="display:inline;">
@@ -59,11 +58,6 @@
                 <flux:input label="Director" placeholder="Director" name="director" type="string" />
                 <flux:input label="Duracion" placeholder="Duracion" name="duracion" type="number" />
                 <flux:input label="Genero" placeholder="Genero" name="genero" type="string" />
-                <flux:select label="Sucursal" name="sucursal_id">
-                    @foreach($sucursales as $sucursal)
-                        <option value="{{ $sucursal->id }}">{{ $sucursal->nombre }}</option>
-                    @endforeach
-                </flux:select>
                 <flux:select label="Sala" name="sala_id">
                     @foreach($salas as $sala)
                         <option value="{{ $sala->id }}">{{ $sala->nombre }}</option>

@@ -73,9 +73,8 @@ class adminController extends Controller
      // --- Peliculas ---
     public function peliculasIndex() {
         $salas = Sala::with('sucursal')->get();
-        $sucursales = Sucursal::all();
-        $peliculas = Pelicula::with(['sucursal', 'sala'])->get(); 
-        return view('peliculas', compact('salas', 'sucursales','peliculas'));
+        $peliculas = Pelicula::with([ 'sala'])->get(); 
+        return view('peliculas', compact('salas','peliculas'));
     }
 
     public function peliculasSave(Request $request) {
@@ -85,7 +84,6 @@ class adminController extends Controller
         $pelicula->director = $request->director;
         $pelicula->duracion = $request->duracion;
         $pelicula->genero = $request->genero;
-        $pelicula->sucursal_id = $request->sucursal_id;
         $pelicula->sala_id = $request->sala_id;
         $pelicula->save();
 
@@ -101,7 +99,6 @@ class adminController extends Controller
     public function peliculasShow($id) {
         $pelicula = Pelicula::find($id);
         $salas = Sala::all();
-        $sucursales = Sucursal::all();
-        return view('peliculas-modifica', compact('salas', 'sucursales','pelicula'));
+        return view('peliculas-modifica', compact('salas','pelicula'));
     }
 }
