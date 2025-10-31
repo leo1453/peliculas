@@ -9,4 +9,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class funcion extends Model
 {
     use SoftDeletes;
+
+        public function pelicula()
+    {
+        return $this->belongsTo(Pelicula::class);
+    }
+
+    public function sala()
+    {
+        return $this->belongsTo(Sala::class);
+    }
 }

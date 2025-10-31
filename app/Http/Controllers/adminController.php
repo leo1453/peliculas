@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Sucursal;
 use App\Models\Sala;
 use App\Models\Pelicula;
+use App\Models\Funcion;
 
 
 class adminController extends Controller
@@ -101,4 +102,40 @@ class adminController extends Controller
         $salas = Sala::all();
         return view('peliculas-modifica', compact('salas','pelicula'));
     }
+
+    //funciones
+    // --- Funciones ---
+    public function funcionesIndex() {
+        $funciones = Funcion::with(['pelicula', 'sala'])->get();
+        $peliculas = Pelicula::all();
+        $salas = Sala::with('sucursal')->get();
+        return view('funciones', compact('funciones', 'peliculas', 'salas'));
+    }
+
+    public function funcionesSave(Request $request) {
+        $funcion = $request->id ? Funcion::find($request->id) : new Funcion();
+
+        $funcion->fecha = $request->fecha;
+        $funcion->pelicula_id = $request->pelicula_id;
+        $funcion->sala_id = $request->sala_id;
+        $funcion->tipo = $request->tipo;
+        $funcion->costo = $request->costo;
+        $funcion->save();
+
+        return redirect()->route('funciones.index');
+    }
+
+    public function funcionesDelete($id) {
+        $funcion = Funcion::find($id);
+        $funcion?->delete();
+        return redirect()->back();
+    }
+
+    public function funcionesShow($id) {
+        $funcion = Funcion::find($id);
+        $peliculas = Pelicula::all();
+        $salas = Sala::all();
+        return view('funciones-modifica', compact('funcion', 'peliculas', 'salas'));
+    }
+
 }

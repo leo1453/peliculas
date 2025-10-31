@@ -47,6 +47,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('peliculas/save', [adminController::class, 'peliculasSave'])->name('peliculas.save');
     Route::post('peliculas/delete/{id}', [adminController::class, 'peliculasDelete'])->name('peliculas.delete');
     Route::get('peliculas/show/{id}', [adminController::class, 'peliculasShow'])->name('peliculas.show');
+
+    Route::get('funciones', [adminController::class, 'funcionesIndex'])->name('funciones.index');
+    Route::post('funciones/save', [adminController::class, 'funcionesSave'])->name('funciones.save');
+    Route::post('funciones/delete/{id}', [adminController::class, 'funcionesDelete'])->name('funciones.delete');
+    Route::get('funciones/show/{id}', [adminController::class, 'funcionesShow'])->name('funciones.show');
+
     
 
 });
