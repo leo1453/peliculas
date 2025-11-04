@@ -145,12 +145,17 @@ class adminController extends Controller
     }
 
     public function generarReportePeliculasSalas(Request $request) {
-                $dompdf = new Dompdf();
-                $salas = Sala::find($request->sala_id);
-                $funciones = Funcion::where('sala_id', $request->sala_id)->get();
+        $dompdf = new Dompdf();
+        $sala = Sala::find($request->sala_id);
+        $funciones = Funcion::where('sala_id', $request->sala_id)->get();
         $peliculas = Pelicula::all();
-dd($salas, $funciones, $peliculas);
-        $html = view('reportesPeliculasSalas', compact('salas','funciones','peliculas'))->render();
+
+        $html = view('reportesPeliculasSalas', compact('sala', 'funciones', 'peliculas'))->render();
+
+        // Revisa que el HTML realmente tenga contenido antes de enviarlo a Dompdf
+        if (empty(trim($html))) {
+            return response('No se generó contenido para el PDF (revisa la vista o los datos).', 500);
+        }
 
         $dompdf->loadHtml($html);
         $dompdf->setPaper('A4', 'landscape');
@@ -158,6 +163,5 @@ dd($salas, $funciones, $peliculas);
 
         return $dompdf->stream('reporte_peliculas_salas.pdf');
     }
-    
 
 }
