@@ -7,10 +7,16 @@ use App\Models\Sucursal;
 use App\Models\Sala;
 use App\Models\Pelicula;
 use App\Models\Funcion;
+use Dompdf\Dompdf;
 
 
 class adminController extends Controller
 {
+    public function dashboard(){
+        $salas = Sala::all();
+        return view('dashboard', compact('salas'));
+    }
+
     // --- Sucursales ---
     public function index() {
         $sucursales = Sucursal::all();
@@ -137,5 +143,21 @@ class adminController extends Controller
         $salas = Sala::all();
         return view('funciones-modifica', compact('funcion', 'peliculas', 'salas'));
     }
+
+    public function generarReportePeliculasSalas(Request $request) {
+                $dompdf = new Dompdf();
+                $salas = Sala::find($request->sala_id);
+                $funciones = Funcion::where('sala_id', $request->sala_id)->get();
+        $peliculas = Pelicula::all();
+dd($salas, $funciones, $peliculas);
+        $html = view('reportesPeliculasSalas', compact('salas','funciones','peliculas'))->render();
+
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
+
+        return $dompdf->stream('reporte_peliculas_salas.pdf');
+    }
+    
 
 }

@@ -12,8 +12,8 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
+Route::get('/dashboard', [adminController::class, 'dashboard'])
+    ->middleware(['auth'])
     ->name('dashboard');
 
 Route::middleware(['auth'])->group(function () {
@@ -52,6 +52,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('funciones/save', [adminController::class, 'funcionesSave'])->name('funciones.save');
     Route::post('funciones/delete/{id}', [adminController::class, 'funcionesDelete'])->name('funciones.delete');
     Route::get('funciones/show/{id}', [adminController::class, 'funcionesShow'])->name('funciones.show');
+
+    Route::post('generar-pdf', [adminController::class, 'generarReportePeliculasSalas'])->name('generar.pdf');
 
     
 
