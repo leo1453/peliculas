@@ -8,6 +8,8 @@ use App\Models\Sala;
 use App\Models\Pelicula;
 use App\Models\Funcion;
 use Dompdf\Dompdf;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Boletos;
 
 
 class adminController extends Controller
@@ -93,6 +95,8 @@ class adminController extends Controller
         $pelicula->genero = $request->genero;
         $pelicula->sala_id = $request->sala_id;
         $pelicula->save();
+
+        Mail::to('jonatanu24mtz@gmail.com')->send(new Boletos($pelicula));
 
         return redirect()->route('peliculas.index');
     }
