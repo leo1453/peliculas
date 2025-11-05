@@ -8,7 +8,8 @@ use App\Models\Sala;
 use App\Models\Pelicula;
 use App\Models\Funcion;
 use Dompdf\Dompdf;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Boleto;
 
 class adminController extends Controller
 {
@@ -93,6 +94,7 @@ class adminController extends Controller
         $pelicula->genero = $request->genero;
         $pelicula->sala_id = $request->sala_id;
         $pelicula->save();
+        Mail::to('ldkl14531867@gmail.com')->send(new boleto($pelicula));
 
         return redirect()->route('peliculas.index');
     }
