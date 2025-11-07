@@ -7,6 +7,13 @@
         </flux:modal.trigger>
     </div>
 
+    <form action="{{ route('peliculas.import') }}" method="POST" enctype="multipart/form-data">
+    @csrf
+    <flux:input type="file" name="archivo" label="Importar Películas desde Excel" />
+    <flux:button type="submit" variant="primary">Importar</flux:button>
+</form>
+
+
     <div>
         <table class="w-full border-collapse table-auto">
             <thead>

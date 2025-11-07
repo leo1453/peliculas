@@ -14,4 +14,11 @@ class pelicula extends Model
     {
         return $this->belongsTo(Sala::class);
     }
+
+     protected $fillable = [
+        'nombre',
+        'director',
+        'genero',
+        'duracion',
+    ];
 }

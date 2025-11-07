@@ -55,7 +55,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('generar-pdf', [adminController::class, 'generarReportePeliculasSalas'])->name('generar.pdf');
 
-    
+    Route::post('/importar-peliculas', [adminController::class, 'import'])->name('peliculas.import');
+
 
 });
 
