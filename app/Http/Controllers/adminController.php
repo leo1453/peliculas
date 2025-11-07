@@ -10,7 +10,8 @@ use App\Models\Funcion;
 use Dompdf\Dompdf;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Boletos;
-
+use App\Imports\PeliculasImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class adminController extends Controller
 {
@@ -166,6 +167,18 @@ class adminController extends Controller
         $dompdf->render();
 
         return $dompdf->stream('reporte_peliculas_salas.pdf');
+    }
+
+    public function importarPeliculas(Request $request) {
+        $request->validate([
+            'archivo' => 'required|file|mimes:xlsx,csv',
+        ]);
+
+        $archivo = $request->file('archivo');
+
+        Excel::import(new PeliculasImport, $archivo);
+
+        return redirect()->route('peliculas.index')->with('success', 'Películas importadas correctamente.');
     }
 
 }

@@ -5,6 +5,11 @@
         <flux:modal.trigger name="agregar-pelicula">
             <flux:button>Agregar Pelicula</flux:button>
         </flux:modal.trigger>
+            <form action="{{ route('importar.peliculas') }}" method="POST" class="mt-4" enctype="multipart/form-data">
+        @csrf
+        <flux:input type="file" name="archivo" placeholder="ID de la Pelicula" required />
+        <flux:button type="submit" variant="primary">Importar</flux:button>
+    </form>
     </div>
 
     <div>
